@@ -3,20 +3,16 @@
 # Modified from MindPointGroup RHEL7-STIG (MIT License)
 # https://github.com/MindPointGroup/RHEL7-STIG
 #
-- name: Apply SSH login banner
-  hosts: "{{ target_hosts | default('all') }}"
-
-  tasks:
-  - name: "MEDIUM | RHEL-07-010050 | PATCH | The operating system must display the Standard Mandatory DoD Notice and Consent Banner before granting local or remote access to the system via a command line user logon."
-    copy:
-        content: "{{ logon_banner }}"
-        dest: "{{ item }}"
-        owner: root
-        group: root
-        mode: 0644
-    with_items:
-        - /etc/issue
-        - /etc/issue.net
-    tags:
-        - ssh
-        - dod_logon_banner
+- name: "MEDIUM | RHEL-07-010050 | PATCH | The operating system must display the Standard Mandatory DoD Notice and Consent Banner before granting local or remote access to the system via a command line user logon."
+  copy:
+      content: "{{ logon_banner }}"
+      dest: "{{ item }}"
+      owner: root
+      group: root
+      mode: 0644
+  with_items:
+      - /etc/issue
+      - /etc/issue.net
+  tags:
+      - ssh
+      - dod_logon_banner
